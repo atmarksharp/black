@@ -1,20 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<title>[ about:black ]</title>
-<!--[if IE]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <meta charset="utf-8" />
+  <title>[ about:black ]</title>
+  <!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 
-<![endif]-->
-<style>
-  article, aside, dialog, figure, footer, header,
-  hgroup, menu, nav, section { display: block; }
-</style>
+  <![endif]-->
+  <style>
+    article, aside, dialog, figure, footer, header,
+    hgroup, menu, nav, section { display: block; }
+  </style>
+
+  <script>
+  console.log("[Info] brightness can be configured like '?q=0.5' ");
+
+  function get(vri){
+    var q=window.location.search.substring(1);
+    var vs=q.split('&');
+    for(var i=0;i<vs.length;i++) {
+      var pr = vs[i].split('=');
+      if (decodeURIComponent(pr[0]) == vri) {
+        return decodeURIComponent(pr[1]);
+      }
+    }
+    console.log('Query '+vri+' was not found');
+  }
+
+  function ready(){
+    var rate = get("q");
+    if(typeof rate !== "undefined"){
+      var img = document.getElementById("anim");
+      img.style["opacity"] = rate;
+    }
+  }
+
+  </script>
 </head>
-<body style="padding:0; margin:0; background-color: black; /*background-image: url('dark.png');*/">
-<!-- <p style="margin-top: 3em; text-align: center;"><img src="fire.gif"/></p>
---!>
-<p style="margin-top: 3em; text-align: center;"><img style="opacity: 0.7;" src="anim.gif"/></p>
+
+<body onload="ready();" style="padding:0; margin:0; background-color: black; /*background-image: url('dark.png');*/">
+<p style="margin-top: 3em; text-align: center;"><img id="anim" style="opacity: 0.7;" src="anim.gif"/></p>
 </body>
 </html>
